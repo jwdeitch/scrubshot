@@ -4,25 +4,17 @@
 #include <QMouseEvent>
 #include <QRect>
 #include <QPoint>
+#include <QPainter>
 
 ssMain::ssMain(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ssMain)
 {
     ui->setupUi(this);
-
-
-    this->setCursor(Qt::CrossCursor);
-//    this->setProperty("windowOpacity", 1);
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     QMainWindow::showMaximized();
-    qApp->installEventFilter(this);
-
-    move_rubberband = false;
-    rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
-    rubberBand->setGeometry(0,0,50,50);
-    rubberBand->show();
+    this->setCursor(Qt::CrossCursor);
 
 }
 
@@ -38,22 +30,29 @@ void ssMain::exit()
 
 void ssMain::mousePressEvent(QMouseEvent *e)
 {
-    if(rubberBand->geometry().contains(e->pos()))
-    {
-        rubberband_offset = e->pos() - rubberBand->pos();
-        move_rubberband = true;
+    if (!inDrag){
+        inDrag = true;
+        QPoint init(e->x() - 3, e->y()-2);
+        init_cords = init;
     }
+
 }
 
 void ssMain::mouseMoveEvent(QMouseEvent *e)
 {
-    if(move_rubberband)
-    {
-        rubberBand->move(e->pos() - rubberband_offset);
-    }
+    QPoint final(e->x() - 3, e->y()-2);
+    end_cords = final;
+    update();
 }
 
 void ssMain::mouseReleaseEvent(QMouseEvent *e)
 {
-    move_rubberband = false;
+    inDrag = false;
+}
+
+void ssMain::paintEvent(QPaintEvent *e)
+{
+    QPainter painter(this);
+    QRect box(init_cords, end_cords);
+    painter.drawRect(box);
 }

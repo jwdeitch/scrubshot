@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QRubberBand>
 #include <QMouseEvent>
+#include <QPainter>
+#include <QPaintEvent>
 
 namespace Ui {
 class ssMain;
@@ -23,12 +25,18 @@ private slots:
 private:
     Ui::ssMain *ui;
 
-    QPoint *init_cords;
+    QPoint init_cords;
+    QPoint end_cords;
+    QPainter painter;
+
+    bool inDrag = false;
+
 
 protected:
     void mousePressEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
+    void paintEvent(QPaintEvent *e);
 };
 
 #endif // SSMAIN_H
