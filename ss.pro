@@ -13,10 +13,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        ssmain.cpp \
-    selectionbox.cpp
+        ssmain.cpp
 
-HEADERS  += ssmain.h \
-    selectionbox.h
+HEADERS  += ssmain.h
 
 FORMS    += ssmain.ui

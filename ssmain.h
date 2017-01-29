@@ -2,7 +2,8 @@
 #define SSMAIN_H
 
 #include <QMainWindow>
-#include "selectionbox.h"
+#include <QRubberBand>
+#include <QMouseEvent>
 
 namespace Ui {
 class ssMain;
@@ -15,20 +16,19 @@ class ssMain : public QMainWindow
 public:
     explicit ssMain(QWidget *parent = 0);
     ~ssMain();
-    void mousePressEvent(QMouseEvent *event);
 
 private slots:
     void exit();
 
 private:
     Ui::ssMain *ui;
-    RubberBand *selectionBox;
+
+    QPoint *init_cords;
 
 protected:
-//    void mousePressEvent(QMouseEvent* event);
-//    void mouseReleaseEvent(QMouseEvent * event);
-//    void mouseMoveEvent(QMouseEvent *event);
-//    bool eventFilter(QObject* object, QEvent* event);
+    void mousePressEvent(QMouseEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
 };
 
 #endif // SSMAIN_H
