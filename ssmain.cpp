@@ -5,6 +5,8 @@
 #include <QRect>
 #include <QPoint>
 #include <QPainter>
+#include <QScreen>
+#include "screenshot.h"
 
 ssMain::ssMain(QWidget *parent) :
     QMainWindow(parent),
@@ -48,6 +50,8 @@ void ssMain::mouseMoveEvent(QMouseEvent *e)
 void ssMain::mouseReleaseEvent(QMouseEvent *e)
 {
     inDrag = false;
+    Screenshot screenshot;
+    screenshot.takeShot();
 }
 
 void ssMain::paintEvent(QPaintEvent *e)

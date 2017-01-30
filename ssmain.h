@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QPixmap>
 
 namespace Ui {
 class ssMain;
@@ -30,6 +31,8 @@ private:
     QPainter painter;
 
     bool inDrag = false;
+
+    QPixmap pixleMap;
 
 
 protected:

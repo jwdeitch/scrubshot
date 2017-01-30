@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        ssmain.cpp
+        ssmain.cpp \
+    screenshot.cpp
 
-HEADERS  += ssmain.h
+HEADERS  += ssmain.h \
+    screenshot.h
 
 FORMS    += ssmain.ui
