@@ -1,6 +1,7 @@
 #include "screenshot.h"
 #include <QApplication>
 #include <QtWidgets>
+#include <cmath>
 
 Screenshot::Screenshot()
 {
@@ -8,7 +9,7 @@ Screenshot::Screenshot()
 }
 
 
-void Screenshot::takeShot() {
+void Screenshot::takeShot(QPoint init_coords, QPoint end_coords) {
     qDebug() << "0";
 //    QScreen *screen = QApplication::primaryScreen();
 //    if (const QWindow *window = windowHandle()) {
@@ -21,11 +22,31 @@ void Screenshot::takeShot() {
 // qDebug() << "2";
 //    PixelMap = screen->grabWindow(0);
 
-    QPixmap::grabWindow(QApplication::desktop()->winId(),0,0,
-                 QApplication::desktop()->screenGeometry().width(),
-                 QApplication::desktop()->screenGeometry().height())
-          .save("/Users/jordan1/Desktop/screenShot.png");
+    qDebug() << "iX " << init_coords.x() << "iY" << init_coords.y() << endl;
+    qDebug() << "fX " << end_coords.x() << "fY" << end_coords.y() << endl;
+    qDebug() << "areaX " << abs(init_coords.x() - end_coords.x()) << "areaY " << abs(init_coords.y() - end_coords.y());
+    QScreen *screen = QApplication::primaryScreen();
+    PixelMap = screen->grabWindow(QApplication::desktop()->winId(),
+    init_coords.x(),
+    init_coords.y(),
+    30,
+    30
+    );
+    PixelMap.save("/tmp/scrubshot.png");
+//    saveScreenshot();
 
+//    PixelMap = screen->grabWindow(QApplication::desktop()->winId(),
+//    init_coords.x(),
+//    init_coords.y(),
+//    abs(init_coords.x() - end_coords.x()),
+//    abs(init_coords.y() - end_coords.y())
+//    );
+
+}
+
+void Screenshot::grabWholeScreen() {
+    QScreen *screen = QApplication::primaryScreen();
+    PixelMap = screen->grabWindow(QApplication::desktop()->winId(),0,0);
 }
 
 void Screenshot::saveScreenshot()

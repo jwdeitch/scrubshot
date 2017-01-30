@@ -13,11 +13,11 @@ ssMain::ssMain(QWidget *parent) :
     ui(new Ui::ssMain)
 {
     ui->setupUi(this);
+
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     QMainWindow::showMaximized();
     this->setCursor(Qt::CrossCursor);
-
 }
 
 ssMain::~ssMain()
@@ -36,8 +36,11 @@ void ssMain::mousePressEvent(QMouseEvent *e)
         inDrag = true;
         QPoint init(e->x() - 3, e->y()-2);
         init_cords = init;
-    }
 
+        QPoint final(e->x() - 3, e->y()-2);
+        end_cords = final;
+    }
+    update();
 }
 
 void ssMain::mouseMoveEvent(QMouseEvent *e)
@@ -50,13 +53,20 @@ void ssMain::mouseMoveEvent(QMouseEvent *e)
 void ssMain::mouseReleaseEvent(QMouseEvent *e)
 {
     inDrag = false;
+//    QPoint final(0,0);
+//    QPoint init(0,0);
+//    init_cords = init;
+//    end_cords = final;
+    update();
     Screenshot screenshot;
-    screenshot.takeShot();
+    screenshot.takeShot(init_cords, end_cords);
 }
 
 void ssMain::paintEvent(QPaintEvent *e)
 {
+
     QPainter painter(this);
     QRect box(init_cords, end_cords);
+    if (!inDrag) { painter.setOpacity(0); }
     painter.drawRect(box);
 }
