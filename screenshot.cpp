@@ -29,9 +29,12 @@ void Screenshot::takeShot(QPoint init_coords, QPoint end_coords) {
     PixelMap = screen->grabWindow(QApplication::desktop()->winId(),
     init_coords.x(),
     init_coords.y(),
-    30,
-    30
+    abs(init_coords.x() - end_coords.x()),
+    abs(init_coords.y() - end_coords.y())
     );
+
+
+//    screen->grabWindow(0);
     PixelMap.save("/tmp/scrubshot.png");
 //    saveScreenshot();
 
