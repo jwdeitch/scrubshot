@@ -59,14 +59,15 @@ void ssMain::mouseReleaseEvent(QMouseEvent *e)
 //    end_cords = final;
     update();
     Screenshot screenshot;
-    screenshot.takeShot(init_cords, end_cords);
+    screenshot.takeShot(selectionBox);
 }
 
 void ssMain::paintEvent(QPaintEvent *e)
 {
 
     QPainter painter(this);
-    QRect box(init_cords, end_cords);
+    QRect * l_selectionBox = new QRect(init_cords, end_cords);
+    selectionBox = *l_selectionBox;
     if (!inDrag) { painter.setOpacity(0); }
-    painter.drawRect(box);
+    painter.drawRect(*l_selectionBox);
 }

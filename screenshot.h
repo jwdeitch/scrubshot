@@ -11,7 +11,7 @@ class Screenshot : public QWidget
 
 public:
     Screenshot();
-    void takeShot(QPoint init_coords, QPoint end_coords);
+    void takeShot(QRect selectionBox);
     void grabWholeScreen();
 
 private slots:

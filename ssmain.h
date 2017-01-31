@@ -30,6 +30,8 @@ private:
     QPoint end_cords;
     QPainter painter;
 
+    QRect selectionBox;
+
     bool inDrag = false;
 
     QPixmap pixleMap;

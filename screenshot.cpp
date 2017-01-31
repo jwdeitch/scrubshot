@@ -9,42 +9,30 @@ Screenshot::Screenshot()
 }
 
 
-void Screenshot::takeShot(QPoint init_coords, QPoint end_coords) {
-    qDebug() << "0";
-//    QScreen *screen = QApplication::primaryScreen();
-//    if (const QWindow *window = windowHandle()) {
-//         qDebug() << "1";
-//        screen = window->screen();
-//    } else if (!screen) {
-//         qDebug() << "2";
-//        return;
-//    }
-// qDebug() << "2";
-//    PixelMap = screen->grabWindow(0);
-
-    qDebug() << "iX " << init_coords.x() << "iY" << init_coords.y() << endl;
-    qDebug() << "fX " << end_coords.x() << "fY" << end_coords.y() << endl;
-    qDebug() << "areaX " << abs(init_coords.x() - end_coords.x()) << "areaY " << abs(init_coords.y() - end_coords.y());
+void Screenshot::takeShot(QRect selectionBox) {
     QScreen *screen = QApplication::primaryScreen();
-    PixelMap = screen->grabWindow(QApplication::desktop()->winId(),
-    init_coords.x(),
-    init_coords.y(),
-    abs(init_coords.x() - end_coords.x()),
-    abs(init_coords.y() - end_coords.y())
+
+    PixelMap = screen->grabWindow(
+        QApplication::desktop()->winId(),
+        selectionBox.normalized().x(),
+        selectionBox.normalized().y(),
+        selectionBox.width(),
+        selectionBox.height()
     );
 
+qDebug() << "--------------";
+qDebug() << selectionBox.normalized();
+
+//    PixelMap = screen->grabWindow(QApplication::desktop()->winId(),
+//    356,
+//    107,
+//    291,
+//    381
+//    );
 
 //    screen->grabWindow(0);
     PixelMap.save("/tmp/scrubshot.png");
 //    saveScreenshot();
-
-//    PixelMap = screen->grabWindow(QApplication::desktop()->winId(),
-//    init_coords.x(),
-//    init_coords.y(),
-//    abs(init_coords.x() - end_coords.x()),
-//    abs(init_coords.y() - end_coords.y())
-//    );
-
 }
 
 void Screenshot::grabWholeScreen() {
