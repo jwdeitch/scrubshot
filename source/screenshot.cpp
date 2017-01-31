@@ -4,10 +4,7 @@
 #include <cmath>
 
 Screenshot::Screenshot()
-{
-
-}
-
+{}
 
 void Screenshot::takeShot(QRect selectionBox) {
     QScreen *screen = QApplication::primaryScreen();
@@ -20,17 +17,10 @@ void Screenshot::takeShot(QRect selectionBox) {
         selectionBox.height()
     );
 
-qDebug() << "--------------";
-qDebug() << selectionBox.normalized();
+    if (selectionBox.area == 0) {
+        screen->grabWindow(0);
+    }
 
-//    PixelMap = screen->grabWindow(QApplication::desktop()->winId(),
-//    356,
-//    107,
-//    291,
-//    381
-//    );
-
-//    screen->grabWindow(0);
     PixelMap.save("/tmp/scrubshot.png");
 //    saveScreenshot();
 }
